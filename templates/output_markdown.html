@@ -1,0 +1,32 @@
+
+<div class="selectable markdown-raw" ng-if="markdown" copy-button>
+<p>###Notice:</p>
+<div ng-if="snap_form.notice.$viewValue" class="pre">
+{{snap_form.notice.$viewValue}}
+</div>
+<div ng-if="!snap_form.notice.$viewValue">
+<p>N/A</p>
+</div>
+<br />
+<div>
+<p>###Working On:</p>
+<ul ng-repeat="(key, value) in working_on | groupBy: 'client'">
+<li ng-if="key">
+**{{key}}**
+<ul>
+<li ng-repeat="project in value" class="form-group" ng-if="project.name">
+- **{{project.name}}**: {{project.text}} - {{project.hours}} hrs - {{getPercentage(project) | percentage:0}}
+</li>
+</ul>
+<br />
+</li>
+</ul>
+</div>
+<p >###The Good, The Bad, and The Ugly: </p>
+<div ng-if="snap_form.gbu.$viewValue" class="pre">
+{{snap_form.gbu.$viewValue}}
+</div>
+<div ng-if="!snap_form.gbu.$viewValue">
+<p>N/A</p>
+</div>
+</div>

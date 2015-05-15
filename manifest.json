@@ -1,0 +1,45 @@
+{
+    "name": "EasySnaps",
+    "description": "Write snapshots like Clockwork.",
+    "version": "0.1",
+    "manifest_version": 2,
+    "default_locale": "en",
+    "file_handlers": {
+        "text": {
+            "extensions": [
+                "cw",
+                "json"
+            ]
+        }
+    },
+    "permissions": [
+        "clipboardRead",
+        "clipboardWrite",
+        "contextMenus",
+        "fileBrowserHandler",
+        {
+            "fileSystem": [
+                "write",
+                "retainEntries",
+                "directory"
+            ]
+        },
+        "nativeMessaging",
+        "identity",
+        "storage",
+        "syncFileSystem",
+        "unlimitedStorage",
+        "<all_urls>"
+    ],
+   "icons": { "16": "icons/icon16.png",
+             "48": "icons/icon48.png",
+            "128": "icons/icon128.png" },
+    "offline_enabled": true,
+    "app": {
+        "background": {
+            "scripts": [
+                "scripts/background.js"
+            ]
+        }
+    }
+}

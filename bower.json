@@ -1,0 +1,17 @@
+{
+  "name": "Easy Snaps",
+  "version": "0.0.1",
+  "authors": [
+    "Conner McCall <conner@clockwork.net>"
+  ],
+  "main": "index.html",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

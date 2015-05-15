@@ -1,0 +1,31 @@
+
+<div class="selectable" ng-if="!markdown" copy-button>
+<p><strong>Notice:</strong></p>
+<div ng-if="snap_form.notice.$viewValue" btf-markdown="snap_form.notice.$viewValue">
+</div>
+
+
+<div ng-if="!snap_form.notice.$viewValue">
+<p>N/A</p>
+</div>
+<div>
+<p><strong>Working On:</strong></p>
+<ul ng-repeat="(key, value) in working_on | groupBy: 'client'">
+<li>
+<h5>{{key}}</h5>
+<ul>
+<li ng-repeat="project in value" class="form-group" ng-if="project.name">
+<strong>{{project.name}}</strong>: {{project.text}} - <span ng-if="percent">{{getHours(project) | number:1}} hrs - {{project.percentage / 100 | percentage:0}}</span><span ng-if="!percent">{{project.hours}} hrs - {{getPercentage(project) | percentage:0}}</span>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+<p ><strong>The Good, The Bad, and The Ugly:</strong></p>
+<div ng-if="snap_form.gbu.$viewValue" btf-markdown="snap_form.gbu.$viewValue">
+</div>
+<div ng-if="!snap_form.gbu.$viewValue">
+<p>N/A</p>
+</div>
+</div>

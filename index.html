@@ -1,0 +1,107 @@
+<html ng-csp ng-app="EasySnapsApp">
+<head>
+	<title>Simple Snapshots</title>
+	
+	<link rel="stylesheet" href="/vendor/bootstrap/dist/css/bootstrap.css" />
+	<link rel="stylesheet" href="/vendor/angular/angular-csp.css" />
+	<link rel="stylesheet" href="/vendor/bootstrap/dist/css/bootstrap-theme.css" />
+	<link rel="stylesheet" href="/styles/main.css" />
+	<script src="/vendor/jquery/dist/jquery.js"></script>
+	<script src="/vendor/angular/angular.js"></script>
+	<script src="/vendor/angular-sanitize/angular-sanitize.js"></script>
+	<script src="/vendor/showdown/compressed/Showdown.js"></script>
+	<script src="/vendor/angular-markdown-directive/markdown.js"></script>
+	<script src="/scripts/easy_snaps/copy_directive.js"></script>
+	<script src="/scripts/easy_snaps/app.js"></script>
+	<script src="/scripts/easy_snaps/group_by_filter.js"></script>
+	<script src="/scripts/easy_snaps/snapshot_controller.js"></script>
+
+</head>
+
+<body >
+	<div class="container-fluid" ng-controller="snapshotCtrl">
+		<h1>Simple Snapshots</h1>
+		<div class="row">
+			<div class="col-md-7">
+				<form name="snap_form">
+				<div class="form-inline">
+					<div class="checkbox">
+					    <label>
+					    	<button type="button" class="btn btn-primary btn-sm" ng-hide="markdown" ng-click="switchFormat()"></span>Display Markdown</button>
+
+					    	<button type="button" class="btn btn-primary btn-sm" ng-hide="!markdown" ng-click="switchFormat()"></span>Display Formatted</button>
+					    </label>
+					  </div>
+					  <div class="checkbox">
+					    <label>
+					      <button type="button" class="btn btn-primary btn-sm" ng-hide="percent" ng-click="switchEntryFormat()"></span>Use Percent</button>
+
+					    	<button type="button" class="btn btn-primary btn-sm" ng-hide="!percent" ng-click="switchEntryFormat()"></span>Use Hours</button>
+					    </label>
+					  </div>
+					  <div class="form-group">
+						<label>Target:</label>
+						<div class="input-group" >
+						<input type="text" class="form-control" placeholder="40" ng-model="base" />
+						<div class="input-group-addon">Hours</div>
+						</div>
+					</div>
+				</div>
+					<div class="form-group">
+						<label for="notice">Notice</label>
+						<textarea name="notice" class="form-control" rows="4" ng-model="notice">x</textarea>
+					</div>
+					<hr />
+					<div ng-repeat="project in working_on">
+						<div class="form-inline">
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Client" ng-model="project.client" />
+								<input type="text" class="form-control" placeholder="Project Name" ng-model="project.name" />
+								<div class="input-group" ng-if="!percent">
+									<input type="number" class="form-control" placeholder="0" ng-model="project.hours"  />
+									<div class="input-group-addon" ng-click="switchCalculations()">hrs</div>
+								</div>
+								<div class="input-group" ng-if="percent">
+									<input type="number" class="form-control" placeholder="0" ng-model="project.percentage" />
+									<div class="input-group-addon" ng-click="switchCalculations()">%</div>
+								</div>
+								<button type="button" class="btn btn-danger btn-xs" ng-click="remove(project)" ng-if="working_on.length > 1"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>Remove</button>
+								<button type="button" class="btn btn-primary btn-xs" ng-click="addRemaining(project)"><span class="glyphicon glyphicon-calculator" aria-hidden="true"></span>Add Remaining</button>
+							</div>
+						</div>
+						<br />
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="About" ng-model="project.text" />
+						</div>
+						
+					</div>
+					<br />
+					<button type="button" class="btn btn-success btn-sm" ng-click="addNew()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add Another Project</button>
+					<hr />
+					<div class="form-group">
+						<label for="gbu">The Good, The Bad, and The Ugly</label>
+						<textarea name="gbu" class="form-control" rows="4" ng-model="gbu">x</textarea>
+					</div>
+
+				</form>
+			</div>
+			<div class="col-md-5">
+				<div class="progress" ng-if="!percent" >
+					<div class="progress-bar" role="progressbar" aria-valuenow="{{getTotalHours()}}" aria-valuemin="0" aria-valuemax="40" style="width: {{getFullTimePercentage() | percentage:0}};" ng-class="{'progress-bar-success' : getFullTimePercentage() === 1}">
+					<span ng-if="getFullTimePercentage() > 0">{{getFullTimePercentage() | percentage:0}} Full Time</span>
+					</div>
+				</div>
+				<div class="progress" ng-if="percent" >
+					<div class="progress-bar" role="progressbar" aria-valuenow="{{getTotalPercent()}}" aria-valuemin="0" aria-valuemax="40" style="width: {{getTotalPercent() / 100 | percentage:0}};"  ng-class="{'progress-bar-success' : getTotalPercent() === 100}">
+					<span ng-if="getTotalPercent() > 0">{{getTotalPercent() / 100 | percentage:0}} Full Time</span>
+					</div>
+				</div>
+<ng-include src="'/templates/output_plain.html'"></ng-include>
+<ng-include src="'/templates/output_markdown.html'"></ng-include>
+			
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
