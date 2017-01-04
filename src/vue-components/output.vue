@@ -1,38 +1,89 @@
 <template>
     <div class="container">
-        <h2>Notice</h2>
-        <ul>
-        	 <li v-for="line in snapshot.notice">{{ line }}</li>
-        </ul>
-        <h2>Working On This Week</h2>
-        <ul>
-        	<li v-for="project in snapshot.projects"><strong>{{ project.client }}</strong>: {{project.description}} | {{project.hours}} Hours ({{displayPercentUsed(project.hours)}})</li>
-        	<li v-if="snapshot.projects.length > 0 && availableHours > 0">Available for Additional Billable Work | {{availableHours }}
-        </ul>
-        <h2>Good, Bad, Ugly</h2>
-       	<ul>
-       		<li v-if="snapshot.gbu.good">Good: {{snapshot.gbu.good}}</li>
-       		<li v-if="snapshot.gbu.bad">Bad: {{snapshot.gbu.bad}}</li>
-       		<li v-if="snapshot.gbu.ugly">Ugly: {{snapshot.gbu.ugly}}</li>
-       	</ul>
-
+        <div class="small-12 medium-6 column">
+            <div v-html="compiled"></div>
+        </div>
+        <div class="small-12 medium-6 column">
+            <pre>{{source}}</pre>
+        </div>
     </div>
 </template>
 
 <script>
 	import percent from '../filters/percent.js';
+    import marked from 'marked';
     export default {
     	props: ['snapshot', 'totalHours'],
     	methods: {
     		displayPercentUsed(hours) {
     			return percent(hours / this.totalHours);
     		},
+            renderNotice() {
+                if(this.snapshot.notice.length > 0) {
+                    return this.snapshot.notice.reduce(function(value, current) {
+                        return value + '\n* ' + current;
+                    }, '\n## Notice \n') + '\n';
+                }
+                else {
+                    return '';
+                }
+
+            },
+            renderProjects() {
+                let renderLine = (line) => {
+                    return '\n* ' + '**' + line.client + '**: ' + line.description +
+                    ' | ' + line.hours + ' hours (' + this.displayPercentUsed(line.hours) +  ')';
+                };
+                let additionalWork = () => {
+                    if( this.snapshot.projects.length > 0 && this.availableHours > 0 ) {
+                        return '\n* ' + 'Available for Additional Billable Work | ' + this.availableHours;
+                    }
+                    else {
+                        return '';
+                    }
+                };
+
+                if(this.snapshot.projects.length > 0) {
+                    return this.snapshot.projects.reduce(function(value, current) {
+                        return value + renderLine(current);
+                    }, '\n## Working On This Week \n') + additionalWork() + '\n';
+                }
+                else {
+                    return '';
+                }
+
+            },
+            renderGbu() {
+                let {good, bad, ugly} = this.snapshot.gbu;
+                let gbu = '';
+                let headline = '';
+                if( good || bad || ugly ) {
+                    headline = '\n## The Good, The Bad, and The Ugly\n';
+                }
+
+                if( good ) {
+                    gbu = gbu + '\n* **Good**: ' + good;
+                }
+                if( bad ) {
+                    gbu = gbu + '\n* **Bad**: ' + bad;
+                }
+                if( ugly ) {
+                    gbu = gbu + '\n* **Ugly**: ' + ugly;
+                }
+                return headline + gbu;
+            }
     	},
     	computed : {
     		availableHours() {
                 return this.totalHours - this.snapshot.projects.map(function(project, prev) {
-                    return prev + project.hours
+                    return prev + project.hours;
                 }, 0);
+            },
+            source() {
+               return this.renderNotice() + this.renderProjects() + this.renderGbu();
+            },
+            compiled() {
+                return marked(this.source, { sanitize: true });
             }
     	}
     };

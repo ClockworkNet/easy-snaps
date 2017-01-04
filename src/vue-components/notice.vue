@@ -33,10 +33,13 @@
         },
         methods: {
             addLine() {
-                this.lines.push({id: newId(), text: this.line});
-                this.line = '';
-                this.editing = false;
-                this.updateValue(this.lines);
+                if( this.line.length ) {
+                    this.lines.push({id: newId(), text: this.line});
+                    this.line = '';
+                    this.editing = false;
+                    this.updateValue(this.lines);
+                }
+
             },
             removeLine(line) {
                 this.lines.splice(this.lines.indexOf(line), 1);

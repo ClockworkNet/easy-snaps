@@ -27,6 +27,7 @@
     "jshint": "^2.9.4",
     "jshint-loader": "^0.8.3",
     "lodash": "^4.16.2",
+    "marked": "^0.3.6",
     "node-sass": "^4.1.1",
     "sass-loader": "^4.1.1",
     "style-loader": "^0.13.1",

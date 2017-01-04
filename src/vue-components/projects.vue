@@ -17,13 +17,13 @@
             <legend v-else="editing">Add Project</legend>
             <div class="row">
                 <div class="small-8 column">
-                    <label>Client<input  type="text" v-model="project.client" /></label>
+                    <label>Client<input  type="text" v-model.trim="project.client" /></label>
                 </div>
                 <div class="small-4 column">
-                    <label>Hours<input type="number" v-model="project.hours" /></label>
+                    <label>Hours<input type="number" v-model.number="project.hours" /></label>
                 </div>
                 <div class="small-12 column">
-                    <label>Description<input type="text" v-model="project.description" /></label>
+                    <label>Description<input type="text" v-model.trim="project.description" /></label>
                 </div>
             </div>
             <button class="button success" v-if="editing" v-on:click="addProject">Update</button>
@@ -47,11 +47,15 @@
         },
         methods: {
             addProject() {
-                let new_project = Object.assign({}, this.project, { id: newId() });
-                this.projects.push(new_project);
-                this.project = getTemplate();
-                this.editing = false;
-                this.updateValue(this.projects);
+                let {client, hours, description} = this.project;
+                if( client.length && hours > 0 && description.length ) {
+                    let new_project = Object.assign({}, this.project, { id: newId() });
+                    this.projects.push(new_project);
+                    this.project = getTemplate();
+                    this.editing = false;
+                    this.updateValue(this.projects);
+                }
+
             },
             removeProject(project) {
                 this.projects.splice(this.projects.indexOf(project), 1);
