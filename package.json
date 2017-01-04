@@ -4,9 +4,9 @@
   "description": "Easy Snapshot Creation in Chrome",
   "main": "index.js",
   "scripts": {
-    "start": "webpack --watch --config webpack.config.js",
-    "build": "webpack --config webpack.config.js",
-    "prod": "webpack --config webpack.config.js --optimize-minimize",
+    "start": "webpack --watch --config build/webpack.config.js",
+    "build": "webpack --config build/webpack.config.js",
+    "prod": "webpack --config build/webpack.build-production.config.js --optimize-minimize",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -25,6 +25,8 @@
     "babel-loader": "^6.2.10",
     "babel-preset-es2015": "^6.18.0",
     "css-loader": "^0.26.1",
+    "eslint": "^3.12.2",
+    "eslint-loader": "^1.6.1",
     "foundation-sites": "^6.3.0",
     "jshint": "^2.9.4",
     "jshint-loader": "^0.8.3",

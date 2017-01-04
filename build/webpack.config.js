@@ -11,7 +11,7 @@ module.exports = {
   },
   vue: {
     loaders: {
-      js: 'babel?presets[]=es2015!jshint'
+      js: 'babel?presets[]=es2015!eslint'
     }
   },
   module: {

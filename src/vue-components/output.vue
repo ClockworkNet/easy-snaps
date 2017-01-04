@@ -12,14 +12,15 @@
 </template>
 
 <script>
-	import percent from '../filters/percent.js';
+/* global document, window, MouseEvent, FocusEvent */
+    import percent from '../filters/percent.js';
     import marked from 'marked';
     export default {
-    	props: ['snapshot', 'totalHours'],
-    	methods: {
-    		displayPercentUsed(hours) {
-    			return percent(hours / this.totalHours);
-    		},
+        props: ['snapshot', 'totalHours'],
+        methods: {
+            displayPercentUsed(hours) {
+                return percent(hours / this.totalHours);
+            },
             renderNotice() {
                 if(this.snapshot.notice.length > 0) {
                     return this.snapshot.notice.reduce(function(value, current) {
@@ -100,9 +101,9 @@
                 document.execCommand('copy');
                 body.removeChild(source);
             }
-    	},
-    	computed : {
-    		availableHours() {
+        },
+        computed : {
+            availableHours() {
                 return this.totalHours - this.snapshot.projects.map(function(project, prev) {
                     return prev + project.hours;
                 }, 0);
@@ -113,7 +114,7 @@
             compiled() {
                 return marked(this.source, { sanitize: true });
             }
-    	}
+        }
     };
 </script>
 
