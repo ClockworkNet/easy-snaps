@@ -1,13 +1,9 @@
+/* global module */
 module.exports = {
   entry: './src/app.js',
   output: {
     path: './public',
     filename: 'app.js'
-  },
-  resolve: {
-    alias: {
-      'vue$': 'vue/dist/vue.common.js',
-    }
   },
   vue: {
     loaders: {

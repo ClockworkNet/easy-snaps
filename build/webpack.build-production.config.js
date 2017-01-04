@@ -1,3 +1,4 @@
+/* global require, module */
 const webpack = require('webpack');
 const base = require('./webpack.config');
 

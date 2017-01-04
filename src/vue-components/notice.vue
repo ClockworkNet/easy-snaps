@@ -14,8 +14,8 @@
             <legend v-if="editing">Edit Notice</legend>
             <legend v-else>Add Notice</legend>
             <input type="text" v-model="line" />
-            <button class="button success" v-if="editing" v-on:click="addLine">Update</button>
-            <button class="button success" v-else v-on:click="addLine">Add</button>
+            <button class="button primary" v-if="editing" v-on:click="addLine">Update</button>
+            <button class="button primary" v-else v-on:click="addLine">Add</button>
         </fieldset>
 
     </div>
