@@ -8,6 +8,8 @@
   "globals": {
     "window"     : true,
     "document"   : true,
-    "console"    : true
+    "console"    : true,
+    "MouseEvent" : true,
+    "FocusEvent" : true
   }
 }

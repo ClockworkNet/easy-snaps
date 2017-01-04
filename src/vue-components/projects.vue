@@ -1,17 +1,16 @@
 <template>
     <div class="container">
-        <ul v-if="projects.length">
-               <li v-for="project in projects" :key="project.id">
-                    <strong>{{project.client}}</strong> |
-                    {{project.description}}
-                    - {{project.hours}}
-                   <button class="button primary tiny" v-on:click="editProject(project)">Edit</button>
-                   <button class="alert button tiny" v-on:click="removeProject(project)">Remove</button>
-                   <button class="button primary tiny" v-if="!isFirst(project) && projects.length > 1" v-on:click="swapUp(project)">Up</button>
-                   <button class="button primary tiny" v-if="!isLast(project) && projects.length > 1" v-on:click="swapDown(project)">Down</button>
-               </li>
-               <li
-        </ul>
+       <div class="callout" v-for="project in projects" :key="project.id">
+             <button class="close-button" aria-label="Delete Project" type="button" v-on:click="removeProject(project)">
+             <span aria-hidden="true">x</span>
+             </button>
+            <strong>{{project.client}}</strong> |
+            {{project.description}}
+            - {{project.hours}}
+           <a v-on:click="editProject(project)">Edit</a>
+           <button class="button secondary tiny hollow" v-if="!isFirst(project) && projects.length > 1" v-on:click="swapUp(project)">Up</button>
+           <button class="button secondary tiny hollow" v-if="!isLast(project) && projects.length > 1" v-on:click="swapDown(project)">Down</button>
+       </div>
         <fieldset class="fieldset">
             <legend v-if="editing">Edit Project</legend>
             <legend v-else="editing">Add Project</legend>
@@ -26,8 +25,8 @@
                     <label>Description<input type="text" v-model.trim="project.description" /></label>
                 </div>
             </div>
-            <button class="button success" v-if="editing" v-on:click="addProject">Update</button>
-            <button class="button success" v-else v-on:click="addProject">Add</button>
+            <button class="button primary" v-if="editing" v-on:click="addProject">Update</button>
+            <button class="button primary" v-else v-on:click="addProject">Add</button>
         </fieldset>
     </div>
 </template>
@@ -104,6 +103,15 @@
 
 <style lang="sass" scoped>
     @import "../sass/component_helpers";
-
+    .button {
+        margin-bottom:0;
+    }
+    .callout {
+        padding: .2rem;
+        margin-bottom: .2rem;
+    }
+    .close-button {
+        font-size: 1.2em;
+    }
 
 </style>

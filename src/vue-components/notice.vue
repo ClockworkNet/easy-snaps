@@ -1,17 +1,19 @@
 <template>
     <div class="container">
-        <ul v-if="lines.length">
-               <li v-for="line in lines" :key="line.id">{{ line.text }}
-                   <button class="button primary tiny" v-on:click="editLine(line)">Edit</button>
-                   <button class="alert button tiny" v-on:click="removeLine(line)">Remove</button>
-                   <button class="button primary tiny" v-if="!isFirst(line) && lines.length > 1" v-on:click="swapUp(line)">Up</button>
-                   <button class="button primary tiny" v-if="!isLast(line) && lines.length > 1" v-on:click="swapDown(line)">Down</button>
-               </li>
-        </ul>
+
+           <div class="callout" v-for="line in lines" :key="line.id">{{ line.text }}
+            <button class="close-button" aria-label="Delete Line" type="button" v-on:click="removeLine(line)">
+                <span aria-hidden="true">x</span>
+            </button>
+               <a v-on:click="editLine(line)">Edit</a>
+
+               <button class="button secondary tiny hollow" v-if="!isFirst(line) && lines.length > 1" v-on:click="swapUp(line)">Up</button>
+               <button class="button secondary tiny hollow" v-if="!isLast(line) && lines.length > 1" v-on:click="swapDown(line)">Down</button>
+           </div>
         <fieldset class="fieldset">
             <legend v-if="editing">Edit Notice</legend>
             <legend v-else>Add Notice</legend>
-            <textarea v-model="line"></textarea>
+            <input type="text" v-model="line" />
             <button class="button success" v-if="editing" v-on:click="addLine">Update</button>
             <button class="button success" v-else v-on:click="addLine">Add</button>
         </fieldset>
@@ -80,6 +82,15 @@
 
 <style lang="sass" scoped>
     @import "../sass/component_helpers";
-
+    .button {
+        margin-bottom:0;
+    }
+    .callout {
+        padding: .2rem;
+        margin-bottom: .2rem;
+    }
+    .close-button {
+        font-size: 1.2em;
+    }
 
 </style>

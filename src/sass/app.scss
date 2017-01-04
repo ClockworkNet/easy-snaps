@@ -9,8 +9,14 @@
 @include foundation-forms;
 @include foundation-menu;
 @include foundation-button;
+@include foundation-close-button;
 @include foundation-progress-element;
+@include foundation-callout;
 
 html, body {
     overflow-y: visible;
+}
+
+progress {
+	border:1px solid #000;
 }

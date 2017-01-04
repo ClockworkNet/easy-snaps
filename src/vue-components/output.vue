@@ -1,10 +1,12 @@
 <template>
-    <div class="container">
-        <div class="small-12 medium-6 column">
-            <div v-html="compiled"></div>
-        </div>
-        <div class="small-12 medium-6 column">
-            <pre>{{source}}</pre>
+    <div class="container row">
+        <div class="small-12 medium-12 column">
+            <div class="button-group">
+                <button class="button primary" v-on:click="copySource()">Copy Markdown</button>
+                <button class="button primary" v-on:click="copyCompiled()">Copy Text</button>
+            </div>
+            <div id="compiled" v-html="compiled"></div>
+
         </div>
     </div>
 </template>
@@ -36,7 +38,7 @@
                 };
                 let additionalWork = () => {
                     if( this.snapshot.projects.length > 0 && this.availableHours > 0 ) {
-                        return '\n* ' + 'Available for Additional Billable Work | ' + this.availableHours;
+                        return '\n* ' + 'Available for Additional Billable Work | ' + this.availableHours + ' hours (' + this.displayPercentUsed(this.availableHours) + ')';
                     }
                     else {
                         return '';
@@ -71,6 +73,32 @@
                     gbu = gbu + '\n* **Ugly**: ' + ugly;
                 }
                 return headline + gbu;
+            },
+            copyCompiled() {
+                let compiled = document.getElementById("compiled");
+                let selectEvent = new MouseEvent("select", {
+                    bubbles: true,
+                    cancelable: true,
+                    view: window
+                  });
+                let focusEvent = new FocusEvent('focus', {
+                    bubbles: true,
+                    cancelable: true,
+                    view: window
+                });
+                  compiled.dispatchEvent(focusEvent);
+                  compiled.dispatchEvent(selectEvent);
+                  document.execCommand('SelectAll');
+                  document.execCommand('copy');
+            },
+            copySource() {
+                let body = document.getElementsByTagName('body')[0];
+                let source = document.createElement('textarea');
+                source.value = this.source;
+                body.appendChild(source);
+                source.select();
+                document.execCommand('copy');
+                body.removeChild(source);
             }
     	},
     	computed : {
@@ -91,6 +119,8 @@
 
 <style lang="sass" scoped>
     @import "../sass/component_helpers";
-
+    #compiled {
+        user-select: text;
+    }
 
 </style>
