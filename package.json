@@ -1,0 +1,42 @@
+{
+  "name": "easysnaps",
+  "version": "2.0.0",
+  "description": "Easy Snapshot Creation in Chrome",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack --watch --config build/webpack.config.js",
+    "build": "webpack --config build/webpack.config.js",
+    "prod": "webpack --config build/webpack.build-production.config.js --optimize-minimize",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ClockworkNet/easy-snaps.git"
+  },
+  "author": "conner@clockwork.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ClockworkNet/easy-snaps/issues"
+  },
+  "homepage": "https://github.com/ClockworkNet/easy-snaps#readme",
+  "devDependencies": {
+    "animate.css": "^3.5.2",
+    "babel-core": "^6.21.0",
+    "babel-loader": "^6.2.10",
+    "babel-preset-es2015": "^6.18.0",
+    "css-loader": "^0.26.1",
+    "eslint": "^3.12.2",
+    "eslint-loader": "^1.6.1",
+    "foundation-sites": "^6.3.0",
+    "jshint": "^2.9.4",
+    "jshint-loader": "^0.8.3",
+    "marked": "^0.3.6",
+    "node-sass": "^4.1.1",
+    "sass-loader": "^4.1.1",
+    "style-loader": "^0.13.1",
+    "vue": "^2.0.1",
+    "vue-loader": "^10.0.2",
+    "vue-template-compiler": "^2.1.8",
+    "webpack": "^1.14.0"
+  }
+}

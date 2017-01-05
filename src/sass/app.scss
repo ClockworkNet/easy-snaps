@@ -1,0 +1,22 @@
+// Variables
+@import "variables";
+@import "~foundation-sites/scss/foundation";
+@import "~animate.css/animate.css";
+@include foundation-global-styles;
+@include foundation-flex-classes;
+@include foundation-flex-grid;
+@include foundation-typography;
+@include foundation-forms;
+@include foundation-menu;
+@include foundation-button;
+@include foundation-close-button;
+@include foundation-progress-element;
+@include foundation-callout;
+
+html, body {
+    overflow-y: visible;
+}
+
+progress {
+	border:1px solid #000;
+}

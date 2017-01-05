@@ -1,7 +1,7 @@
 {
-    "name": "EasySnaps",
+    "name": "Simple Snapshot",
     "description": "Write snapshots like Clockwork.",
-    "version": "0.1",
+    "version": "2.0.0",
     "manifest_version": 2,
     "default_locale": "en",
     "file_handlers": {
@@ -38,7 +38,7 @@
     "app": {
         "background": {
             "scripts": [
-                "scripts/background.js"
+                "public/background.js"
             ]
         }
     }
