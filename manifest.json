@@ -36,10 +36,5 @@
             "128": "icons/icon128.png" },
     "offline_enabled": true,
     "app": {
-        "background": {
-            "scripts": [
-                "public/background.js"
-            ]
-        }
     }
 }

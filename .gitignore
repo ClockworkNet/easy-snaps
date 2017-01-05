@@ -2,4 +2,4 @@ node_modules
 simple_snapshots.crx
 simple_snapshots
 dist.pem
-public/*
+public/app.js
