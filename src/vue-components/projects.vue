@@ -1,16 +1,18 @@
 <template>
     <div class="container">
-       <div class="callout" v-for="project in projects" :key="project.id">
-             <button class="close-button" aria-label="Delete Project" type="button" v-on:click="removeProject(project)">
-             <span aria-hidden="true">x</span>
-             </button>
-            <strong>{{project.client}}</strong> |
-            {{project.description}}
-            - {{project.hours}}
-           <a v-on:click="editProject(project)">Edit</a>
-           <button class="button secondary tiny hollow" v-if="!isFirst(project) && projects.length > 1" v-on:click="swapUp(project)">Up</button>
-           <button class="button secondary tiny hollow" v-if="!isLast(project) && projects.length > 1" v-on:click="swapDown(project)">Down</button>
-       </div>
+        <transition name="custom-classes-transition" enter-active-class="animated fadeIn"leave-active-class="animated fadeOut">
+           <div class="callout" v-for="project in projects" :key="project.id">
+                 <button class="close-button" aria-label="Delete Project" type="button" v-on:click="removeProject(project)">
+                 <span aria-hidden="true">x</span>
+                 </button>
+                <strong>{{project.client}}</strong> |
+                {{project.description}}
+                - {{project.hours}}
+               <a v-on:click="editProject(project)">Edit</a>
+               <button class="button secondary tiny hollow" v-if="!isFirst(project) && projects.length > 1" v-on:click="swapUp(project)">Up</button>
+               <button class="button secondary tiny hollow" v-if="!isLast(project) && projects.length > 1" v-on:click="swapDown(project)">Down</button>
+           </div>
+       </transition>
         <fieldset class="fieldset">
             <legend v-if="editing">Edit Project</legend>
             <legend v-else="editing">Add Project</legend>
@@ -112,6 +114,7 @@
     }
     .close-button {
         font-size: 1.2em;
+        top:.2rem;
     }
 
 </style>

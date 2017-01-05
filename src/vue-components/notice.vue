@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-
+        <transition name="custom-classes-transition"enter-active-class="animated fadeIn"leave-active-class="animated fadeOut">
            <div class="callout" v-for="line in lines" :key="line.id">{{ line.text }}
             <button class="close-button" aria-label="Delete Line" type="button" v-on:click="removeLine(line)">
                 <span aria-hidden="true">x</span>
@@ -10,6 +10,7 @@
                <button class="button secondary tiny hollow" v-if="!isFirst(line) && lines.length > 1" v-on:click="swapUp(line)">Up</button>
                <button class="button secondary tiny hollow" v-if="!isLast(line) && lines.length > 1" v-on:click="swapDown(line)">Down</button>
            </div>
+        </transition>
         <fieldset class="fieldset">
             <legend v-if="editing">Edit Notice</legend>
             <legend v-else>Add Notice</legend>
@@ -91,6 +92,7 @@
     }
     .close-button {
         font-size: 1.2em;
+        top:.2rem;
     }
 
 </style>

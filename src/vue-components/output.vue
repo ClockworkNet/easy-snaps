@@ -17,11 +17,8 @@
     import marked from 'marked';
     export default {
         props: ['snapshot', 'totalHours'],
-        methods: {
-            displayPercentUsed(hours) {
-                return percent(hours / this.totalHours);
-            },
-            renderNotice() {
+        computed: {
+            notice() {
                 if(this.snapshot.notice.length > 0) {
                     return this.snapshot.notice.reduce(function(value, current) {
                         return value + '\n* ' + current;
@@ -32,7 +29,7 @@
                 }
 
             },
-            renderProjects() {
+            projects() {
                 let renderLine = (line) => {
                     return '\n* ' + '**' + line.client + '**: ' + line.description +
                     ' | ' + line.hours + ' hours (' + this.displayPercentUsed(line.hours) +  ')';
@@ -56,7 +53,7 @@
                 }
 
             },
-            renderGbu() {
+            gbu() {
                 let {good, bad, ugly} = this.snapshot.gbu;
                 let gbu = '';
                 let headline = '';
@@ -74,6 +71,24 @@
                     gbu = gbu + '\n* **Ugly**: ' + ugly;
                 }
                 return headline + gbu;
+            },
+            availableHours() {
+                return this.totalHours - this.snapshot.projects.map(function(project, prev) {
+                    return prev + project.hours;
+                }, 0);
+            },
+            source() {
+               return this.notice + this.projects + this.gbu;
+            },
+            compiled() {
+                return marked(this.source, { sanitize: true });
+            }
+
+
+        },
+        methods: {
+            displayPercentUsed(hours) {
+                return percent(hours / this.totalHours);
             },
             copyCompiled() {
                 let compiled = document.getElementById("compiled");
@@ -102,19 +117,6 @@
                 body.removeChild(source);
             }
         },
-        computed : {
-            availableHours() {
-                return this.totalHours - this.snapshot.projects.map(function(project, prev) {
-                    return prev + project.hours;
-                }, 0);
-            },
-            source() {
-               return this.renderNotice() + this.renderProjects() + this.renderGbu();
-            },
-            compiled() {
-                return marked(this.source, { sanitize: true });
-            }
-        }
     };
 </script>
 

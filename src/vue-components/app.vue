@@ -18,7 +18,7 @@
                     <progress class="success" max="100" v-if="percentUsed > 87" v-bind:value="percentUsed"></progress>
                     <progress class="warning" max="100" v-else-if="percentUsed > 60" v-bind:value="percentUsed"></progress>
                     <progress class="alert" max="100" v-else v-bind:value="percentUsed"></progress>
-                    <projects v-model="projects" :totalHours="targetHours"></projects>
+                    <projects v-model="projects" :totalHours="targetHours" class="animated"  transition="tasks"></projects>
                 </div>
                 <div class="small-12 medium-6 column">
                     <notice v-model="notice"></notice>
@@ -35,19 +35,33 @@
 
 <script>
 import percent from '../filters/percent.js';
-import data from '../data.js';
 import log from '../logger.js';
+
+import data from '../data.js';
+
+import NoticeComponent from './notice.vue';
+import SnapshotComponent from './output.vue';
+import GbuComponent from './gbu.vue';
+import ProjectsComponent from './projects.vue';
+
 log.setLogLevel('debug');
+
     export default {
         data() {
             return data;
         },
+        components: {
+            'notice' : NoticeComponent,
+            'snapshot' : SnapshotComponent,
+            'gbu' : GbuComponent,
+            'projects' : ProjectsComponent
+        },
         computed : {
             snapshot() {
                 return {
-                    notice         : this.notice,
-                    gbu            : this.gbu,
-                    projects    : this.projects
+                    'notice'      : this.notice,
+                    'gbu'         : this.gbu,
+                    'projects'    : this.projects
                 };
             },
             usedHours() {
