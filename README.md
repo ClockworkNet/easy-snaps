@@ -1,3 +1,5 @@
+http://clockworknet.github.io/easy-snaps/
+
 # Simple Snapshots
 
 A chrome extension that makes authoring Monday morning snapshots as easy as Clockwork.
