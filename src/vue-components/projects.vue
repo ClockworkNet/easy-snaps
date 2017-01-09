@@ -1,7 +1,7 @@
 <template>
     <div class="container">
-        <transition name="custom-classes-transition" enter-active-class="animated fadeIn"leave-active-class="animated fadeOut">
-           <div class="callout" v-for="project in projects" :key="project.id">
+        <transition name="custom-classes-transition" enter-active-class="animated fadeIn"leave-active-class="animated fadeOut" v-for="project in projects" :key="project.id">
+           <div class="callout">
                  <button class="close-button" aria-label="Delete Project" type="button" v-on:click="removeProject(project)">
                  <span aria-hidden="true">x</span>
                  </button>

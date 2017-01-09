@@ -1,7 +1,7 @@
 <template>
     <div class="container">
-        <transition name="custom-classes-transition"enter-active-class="animated fadeIn"leave-active-class="animated fadeOut">
-           <div class="callout" v-for="line in lines" :key="line.id">{{ line.text }}
+        <transition name="custom-classes-transition"enter-active-class="animated fadeIn"leave-active-class="animated fadeOut" v-for="line in lines" :key="line.id">
+           <div class="callout">{{ line.text }}
             <button class="close-button" aria-label="Delete Line" type="button" v-on:click="removeLine(line)">
                 <span aria-hidden="true">x</span>
             </button>
