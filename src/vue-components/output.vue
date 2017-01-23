@@ -73,7 +73,8 @@
                 return headline + gbu;
             },
             availableHours() {
-                return this.totalHours - this.snapshot.projects.map(function(project, prev) {
+
+                return this.totalHours - this.snapshot.projects.reduce(function(prev, project) {
                     return prev + project.hours;
                 }, 0);
             },
